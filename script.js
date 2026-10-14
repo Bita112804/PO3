@@ -1,7 +1,7 @@
 class Raster {
   constructor(r,k) {
-    this.aantalRijen = r;
-    this.aantalKolommen = k;
+    this.aantalRijen = 12;
+    this.aantalKolommen = 18;
     this.celGrootte = null;
   }
 
@@ -33,19 +33,19 @@ class Jos {
   }
 
   beweeg() {
-    if (keyIsDown(LEFT_ARROW)) {
+    if (keyIsDown(65)) {
       this.x -= this.stapGrootte;
       this.frameNummer = 2;
     }
-    if (keyIsDown(RIGHT_ARROW)) {
+    if (keyIsDown(68)) {
       this.x += this.stapGrootte;
       this.frameNummer = 1;
     }
-    if (keyIsDown(UP_ARROW)) {
+    if (keyIsDown(87)) {
       this.y -= this.stapGrootte;
       this.frameNummer = 4;
     }
-    if (keyIsDown(DOWN_ARROW)) {
+    if (keyIsDown(83)) {
       this.y += this.stapGrootte;
       this.frameNummer = 5;
     }
