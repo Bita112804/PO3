@@ -1,7 +1,7 @@
 class Raster {
   constructor(r,k) {
-    this.aantalRijen = 12;
-    this.aantalKolommen = 18;
+    this.aantalRijen = r;
+    this.aantalKolommen = k;
     this.celGrootte = null;
   }
 
@@ -67,11 +67,10 @@ class Jos {
     }
   }
 
-  toon() {
-    image(this.animatie[this.frameNummer],this.x,this.y,raster.celGrootte,raster.celGrootte);
+  toon() { image(this.animatie[this.frameNummer],this.x,this.y,raster.celGrootte,raster.celGrootte);
   }
 }  
-
+  
 class Vijand {
   constructor(x,y) {
     this.x = x;
@@ -89,7 +88,40 @@ class Vijand {
   }
 
   toon() {
-    image(this.sprite,this.x,this.y,raster.celGrootte,raster.celGrootte);
+    image(
+      this.sprite,
+      this.x,
+      this.y,
+      raster.celGrootte,
+      raster.celGrootte);
+  }
+}
+
+class Raket {
+  constructor(x,y) {
+  this.x = x;
+  this.y = y;
+  this.sprite = null;
+  this.snelheidY = -10;
+  this.zwaartekracht = 1.5;
+  }
+
+  beweeg() {
+    this.snelheidY += this.zwaartekracht / 10
+    this.y += this.snelheidY
+    if (this.y >= canvas.height - raster.celGrootte) {
+      this.y = canvas.height - raster.celGrootte;
+      this.snelheidY = -10;
+    }
+  }
+
+  toon() {
+    image(
+      this.sprite,
+      this.x,
+      this.y,
+      raster.celGrootte,
+      raster.celGrootte);
   }
 }
 
@@ -104,7 +136,7 @@ function setup() {
   textFont("Verdana");
   textSize(90);
 
-  raster = new Raster(6,9);
+  raster = new Raster(12,18);
 
   raster.berekenCelGrootte();
 
@@ -122,6 +154,15 @@ function setup() {
   bob = new Vijand(600,400);
   bob.stapGrootte = 1*eve.stapGrootte;
   bob.sprite = loadImage("images/sprites/Bob100px/Bob.png");  
+
+  raket1 = new Raket (100,400);
+  raket1.sprite = loadImage("images/sprites/Raket/Raket1.png")
+
+  raket2 = new Raket (400,400);
+  raket2.sprite = loadImage("images/sprites/Raket/Raket2.png")
+
+  raket3 = new Raket (700,400);
+  raket3.sprite = loadImage("images/sprites/Raket/Raket3.png")
 }
 
 function draw() {
@@ -130,9 +171,15 @@ function draw() {
   eve.beweeg();
   alice.beweeg();
   bob.beweeg();
+  raket1.beweeg();
+  raket2.beweeg();
+  raket3.beweeg();
   eve.toon();
   alice.toon();
   bob.toon();
+  raket1.toon();
+  raket2.toon();
+  raket3.toon();
 
   if (eve.wordtGeraakt(alice) || eve.wordtGeraakt(bob)) {
     noLoop();
